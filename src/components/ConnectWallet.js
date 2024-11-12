@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ethers } from 'ethers'; 
+import { ethers } from 'ethers';
 
 const ConnectWallet = () => {
   const [walletAddress, setWalletAddress] = useState("");
@@ -8,8 +8,8 @@ const ConnectWallet = () => {
     if (window.ethereum) {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
+        const accounts = await provider.send("eth_requestAccounts", []);
+        const address = accounts[0]; // Use the first account
         setWalletAddress(address);
         console.log("Connected wallet:", address);
       } catch (error) {
