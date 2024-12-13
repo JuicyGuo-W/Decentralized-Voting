@@ -17,27 +17,44 @@ This project is a decentralized voting platform built on the Ethereum blockchain
 
 ## Installation
 
-1. **Clone the repository**:
-
-    ```bash
-    git clone https://github.com/your-username/Decentralized-Voting.git
-    cd Decentralized-Voting
-    ```
-
-2. **Install dependencies**:
+1. **Install dependencies**:
 
     ```bash
     npm install
     ```
 
-3. **Configure the Smart Contract**:
+2. **Configure the Smart Contract**:
 
     - Deploy the `Voting.sol` contract on a test network using Remix or Truffle.
     - Note the contract address and update it in the front-end code (`VotingApp.js` or `App.js`).
 
-4. **Set Up Infura (Optional)**:
+## Usage
 
-    If connecting to a network like Sepolia via Infura, create an account on [Infura](https://infura.io/) and obtain an API key. Use this API key to connect to the network.
+1. **Start the React App**:
+
+    ```bash
+    npm start
+    ```
+
+2. **Open MetaMask**:
+
+    - Connect your MetaMask to the appropriate test network.
+    - Ensure you have some test ETH in your account.
+
+3. **Connect to the Platform**:
+
+    - Open `http://localhost:3000` in your browser.
+    - Click "Connect Wallet" to connect MetaMask to the platform.
+    - You should see a list of candidates along with their vote counts.
+
+4. **Vote for a Candidate**:
+
+**Admin View**:
+   - Create proposals using the "Add Proposal" interface by specifying description, voting timeframe, and candidate details.
+   - End proposals after voting has concluded and manage the overall proposal lifecycle.
+**User View**:
+   - View active proposals and their details.
+   - Participate in voting by selecting a candidate and casting a vote.
 
 ## Project Structure
 
@@ -62,27 +79,26 @@ web3_latest
 └── voting.sol  # Solidity smart contract
 ```
 
-## Usage
+The `Voting` smart contract contains:
 
-1. **Connect Wallet**: Navigate to the homepage and connect your MetaMask wallet using the "Connect Wallet" button.
-2. **Create Proposal**: Use the "Add Proposal" feature to specify proposal details, including description and voting timeframes.
-3. **Vote**: Participate in any active proposal by casting your vote for or against candidates.
-4. **Manage Proposals**: View detailed information about proposals or end an active proposal through the management interface.
+- **Candidate Structure**: Stores candidate ID, name, and vote count.
+- **Vote Function**: Allows users to vote for a candidate and restricts users to one vote.
+- **Event Logging**: Emits an event every time a vote is cast.
 
 ## Smart Contract Overview
 
-The `voting.sol` smart contract underpins the decentralized voting platform. It includes the following key functionalities:
+The `voting.sol` smart contract serves as the backbone of this decentralized voting platform, implementing the following key functionalities:
 
 - **Proposal Management**:
-  - Add new proposals with voting parameters (description, start and end times, etc.).
-  - Retrieve proposal details, including candidates and their vote counts.
+  - Add new proposals with parameters such as description, voting timeframe, and maximum voting capacity.
+  - Retrieve proposal and candidate details, including vote counts and election status.
 
 - **Voting**:
-  - Cast votes for specific candidates within an active proposal.
-  - Prevent double voting by tracking voters' participation.
+  - Securely cast votes for candidates, ensuring no duplicate voting.
+  - Fetch results for specific proposals, showing vote distributions.
 
 - **Ownership and Administration**:
-  - Transfer contract ownership to a new administrator.
-  - End proposals and archive results.
+  - Enable ownership transfer to a new contract administrator.
+  - End elections and archive results for completed proposals.
 
-Refer to the `voting.json` ABI for detailed interaction specifications and data structures.
+Refer to the `voting.json` ABI for detailed interaction specifications and data structures to integrate the smart contract with the front end.
